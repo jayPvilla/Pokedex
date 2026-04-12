@@ -1,16 +1,30 @@
 import "../css/pokemonCard.css"
+import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
+import { useState, useEffect } from "react";
 
-function PokemonCard({pokemon}){
+function PokemonCard({ pokemon }) {
 
-    function onFavoriteClick(){
-        alert("clicked")
-    }
+    const [imageUrl, setImageUrl] = useState("");
 
-    return(
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                const dataArray = await searchPokemons(pokemon.name);
+                const sprite = dataArray[0].sprites.front_default;
+                setImageUrl(sprite);
+            } catch (err) {
+                console.error("Error loading image", err);
+            }
+        };
+
+        fetchImage();
+    }, [pokemon.name]);
+
+    return (
         <div className="pokemon-card">
-            {/* <div className="pokemon-poster">
-                <img src={`https://image.tmdb.org/t/p/w500${pokemon.poster_path}`} alt={pokemon.title} />
-            </div> */}
+            <div className="pokemon-poster">
+                <img src={imageUrl} alt={pokemon.name} />
+            </div>
             <div className="pokemon-info">
                 <h3>{pokemon.name}  </h3>
             </div>
