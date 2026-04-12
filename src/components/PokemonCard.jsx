@@ -1,4 +1,4 @@
-import "../css/pokemonCard.css"
+import "../css/PokemonCard.css"
 import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
 import { useState, useEffect } from "react";
 
@@ -26,7 +26,7 @@ function PokemonCard({ pokemon }) {
                 <img src={imageUrl} alt={pokemon.name} />
             </div>
             <div className="pokemon-info">
-                <h3>{pokemon.name}  </h3>
+                <h3>{pokemon.name.toUpperCase()}  </h3>
             </div>
         </div>
     )

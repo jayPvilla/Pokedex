@@ -25,3 +25,16 @@ export const searchPokemons = async (pokemon) => {
         return [];
     }
 }
+
+export const getPokemonsByType = async (type) => {
+    try {
+         const response = await fetch(`https://pokeapi.co{type.toLowerCase()}`);
+        const data = await response.json();
+        // The API returns an array of objects: { pokemon: { name, url }, slot }
+        // We map it to match your existing [{ name, url }] format
+        return data.pokemon.map(p => p.pokemon);
+    } catch (e) {
+        console.error("Error fetching types:", e);
+        return [];
+    }
+};
