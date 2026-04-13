@@ -5,11 +5,13 @@ import { getPokemons, searchPokemons, getPokemonsByType } from './api/pokemon_ap
 
 function App() {
   const [pokemons, set_pokemons] = useState([])
-  const [searchQuery, setSearchQuery] = useState("") // State for input
+  const [searchQuery, setSearchQuery] = useState("")
+  const [types, set_types] = useState([])
 
   // Initial load
   useEffect(() => {
     loadDefaultPokemons()
+    loadTypes() // Added this call
   }, [])
 
   const loadDefaultPokemons = async () => {
@@ -21,31 +23,45 @@ function App() {
     }
   }
 
+  const loadTypes = async () => {
+    try {
+      const all_types = await getPokemonsByType()
+      set_types(all_types)
+    } catch (e){
+      console.error(e)
+    }
+  }
+
   const handleSearch = async (e) => {
-    e.preventDefault()
+    if (e) e.preventDefault() // Check if event exists
+    
     if (!searchQuery.trim()) {
-        loadDefaultPokemons() // Reset if empty
-        return
+      loadDefaultPokemons()
+      return
     }
     
     const results = await searchPokemons(searchQuery)
     set_pokemons(results)
   }
 
-
   return (
     <main className='main-content'>
+      <div className="types-container">
+        {types.map(type => (
+          <div className='type-header' key={type.name}>
+            {type.name}
+          </div>
+        ))}
+      </div>
+
       <form className="search" onSubmit={handleSearch}>
         <input 
           type="text" 
           placeholder="Search Pokemon..." 
           spellCheck="false" 
-          value={searchQuery}
+          value={searchQuery} 
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if(e.key === 'Enter' && searchQuery.trim() !== ""){
-              handleSearch()
-          }}}
+          // Removed redundant onKeyDown
         />
         <button type="submit">Search</button>
       </form>

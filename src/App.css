@@ -20,6 +20,22 @@ body {
     min-height: 100vh;
 }
 
+.type-header {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.7); /* Dark background */
+  color: white;                  /* White text */
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.types-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 /* 3. Search Bar Styling */
 .search {
     display: flex;
