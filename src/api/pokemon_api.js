@@ -19,7 +19,7 @@ export const searchPokemons = async (pokemon) => {
         if (!response.ok) throw new Error("Pokemon not found");
 
         const data = await response.json();
-        // Returns [data] so App.js can still use .map() on it
+        
         return [data]; 
     } catch (e) {
         console.error("Search error:", e);
@@ -31,10 +31,28 @@ export const getPokemonsByType = async () => {
     try {
         const response = await fetch(`${base_url}/type`);
         const data = await response.json();
-        // Fix: Return the results array, not the whole data object
+        
+        data.results.unshift({
+            "name": "all",
+            "url": "none"
+        });
+
         return data.results; 
     } catch (e) {
         console.error("Error fetching types:", e);
         return [];
     }
 };
+
+
+export const getPokemonsOfSpecificType = async (selected_type) => {
+   try {
+        const response = await fetch(`${base_url}/type/${selected_type}`);
+        const data = await response.json();
+        
+        return data.pokemon.map(poke => poke.pokemon); 
+    } catch (e) {
+        console.error("Error fetching types:", e);
+        return [];
+    } 
+}
