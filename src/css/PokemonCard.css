@@ -1,10 +1,11 @@
 .pokemon-card {
     display: flex;
     flex-direction: column;
-    background: white;
-    border: 5px ridge #333; /* Ridge looks best with a dark grey/black */
-    border-radius: 20px;      /* Optional: rounds the corners slightly */
-    overflow: hidden;        /* Keeps the image from spilling over the border */
-    width: 200px;            /* Set a width so they don't stretch */
+    background: rgba(255, 255, 255, 0.7);
+    border: 3px ridge #333;
+    border-radius: 20px;      
+    overflow: hidden;        
+    width: 200px;           
     text-align: center;
+    justify-content: center;
 }

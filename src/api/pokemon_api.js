@@ -37,6 +37,8 @@ export const getPokemonsByType = async () => {
             "url": "none"
         });
 
+        data.results.splice(-2, 2);
+
         return data.results; 
     } catch (e) {
         console.error("Error fetching types:", e);

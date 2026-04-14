@@ -28,7 +28,7 @@ function App() {
     set_pokemons(all_pokemons);
   };
 
-  
+
   const loadPokemonsOfSpecificType = async (typeId) => {
     try {
       const pokemonsOfSpecificType = await getPokemonsOfSpecificType(typeId);
@@ -59,21 +59,14 @@ function App() {
     set_pokemons(results)
   }
 
+  const get_filter_value = (url) => {
+    const parts = url.split('/');
+    const pokemonId = parts[parts.length - 2];
+    return pokemonId
+  }
+
   return (
     <main className='main-content'>
-      <div className="types-container">
-        {types.map(type => (
-          <button className='type-header' key={type.name} onClick={type.name == "all" ? () => set_filter_type("All")
-            : () => set_filter_type(() => {
-            const url = type.url;
-            const parts = url.split('/');
-            const pokemonId = parts[parts.length - 2];
-            return pokemonId
-          })}>
-            {type.name}
-          </button>
-        ))}
-      </div>
 
       <form className="search" onSubmit={handleSearch}>
         <input
@@ -83,8 +76,27 @@ function App() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
       </form>
+
+      <div className="types-container">
+        {types.map(type => {
+
+          const typeId = get_filter_value(type.url);
+          const isActive = (type.name === "all" && filter_type === "All") || (filter_type === typeId);
+
+          return (
+            <button 
+              key={type.name} 
+              className={isActive ? 'active-filter' : 'type-header'}
+              onClick={() => set_filter_type(type.name === "all" ? "All" : typeId)}
+            >
+              {type.name}
+            </button>
+          );
+        })}
+      </div>
+
 
       <div className='container-pokemons'>
         {pokemons.length > 0 ? (
