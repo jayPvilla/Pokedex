@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 import PokemonCard from './components/PokemonCard';
-import { getPokemons, searchPokemons, getPokemonsByType, getPokemonsOfSpecificType } from './api/pokemon_api';
+import { getPokemons, searchPokemons, get_types_of_pokemons, getPokemonsOfSpecificType } from './api/pokemon_api';
 
 function App() {
   const [pokemons, set_pokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
+  const [searched_pokemon, set_searched_pokemon] = useState("")
 
 
   useEffect(() => {
     loadTypes();
   }, []);
 
+
   useEffect(() => {
-    if (filter_type === "All") {
+    if (filter_type === "All" && searchQuery.trim() == "") {
       loadPokemons();
     } else {
       loadPokemonsOfSpecificType(filter_type);
     }
   }, [filter_type]);
+
+  useEffect(() => {
+    if (filter_type === "All" && searchQuery.trim() == "") {
+      loadPokemons();
+    } else {
+      set_filter_type("All")
+    }
+  }, [searchQuery])
 
 
   const loadPokemons = async () => {
@@ -38,17 +48,19 @@ function App() {
     }
   };
 
+
   const loadTypes = async () => {
     try {
-      const all_types = await getPokemonsByType()
+      const all_types = await get_types_of_pokemons()
       set_types(all_types)
     } catch (e) {
       console.error(e)
     }
   }
 
+
   const handleSearch = async (e) => {
-    if (e) e.preventDefault() // Check if event exists
+    if (e) e.preventDefault()
 
     if (!searchQuery.trim()) {
       loadPokemons()
@@ -59,11 +71,13 @@ function App() {
     set_pokemons(results)
   }
 
+
   const get_filter_value = (url) => {
     const parts = url.split('/');
     const pokemonId = parts[parts.length - 2];
     return pokemonId
   }
+
 
   return (
     <main className='main-content'>
@@ -96,7 +110,6 @@ function App() {
           );
         })}
       </div>
-
 
       <div className='container-pokemons'>
         {pokemons.length > 0 ? (

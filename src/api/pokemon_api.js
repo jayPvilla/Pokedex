@@ -4,7 +4,7 @@ export const getPokemons = async () => {
     try {
         const response = await fetch(`${base_url}/pokemon?limit=1000`)
         const data = await response.json();
-        return data.results; // Returns array of { name, url }
+        return data.results;
     } catch (e) {
         console.error(e)
         return [];
@@ -27,7 +27,7 @@ export const searchPokemons = async (pokemon) => {
     }
 }
 
-export const getPokemonsByType = async () => {
+export const get_types_of_pokemons = async () => {
     try {
         const response = await fetch(`${base_url}/type`);
         const data = await response.json();
