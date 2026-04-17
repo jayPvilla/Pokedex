@@ -19,6 +19,7 @@ body {
     align-items: center;
     padding: 40px 20px;
     min-height: 100vh;
+    position: relative;
 }
 
 .type-header {
@@ -95,9 +96,16 @@ display: inline-block;
 
 
 .container-pokemons {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 25px;
     width: 100%;
     max-width: 1200px;
+}
+
+.selected-pokemon {
+    position: sticky;
+    right: o;
+    top: 0;
 }

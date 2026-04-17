@@ -49,7 +49,7 @@ export const get_types_of_pokemons = async () => {
 
 export const getPokemonsOfSpecificType = async (selected_type) => {
    try {
-        const response = await fetch(`${base_url}/type/${selected_type}`);
+        const response = await fetch(`${base_url}/type/${selected_type}?limit=1000`);
         const data = await response.json();
         
         return data.pokemon.map(poke => poke.pokemon); 

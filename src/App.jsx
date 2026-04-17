@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 import PokemonCard from './components/PokemonCard';
+import SelectedPokemonCard from './components/SelectedPokemonCard';
 import { getPokemons, searchPokemons, get_types_of_pokemons, getPokemonsOfSpecificType } from './api/pokemon_api';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
   const [searched_pokemon, set_searched_pokemon] = useState("")
+  const [selected_pokemon, set_selected_pokemon] = useState("")
 
 
   useEffect(() => {
@@ -24,12 +26,9 @@ function App() {
     }
   }, [filter_type]);
 
+  
   useEffect(() => {
-    if (filter_type === "All" && searchQuery.trim() == "") {
-      loadPokemons();
-    } else {
       set_filter_type("All")
-    }
   }, [searchQuery])
 
 
@@ -81,44 +80,51 @@ function App() {
 
   return (
     <main className='main-content'>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'sticky'}}>
+        <form className="search" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search Pokemon..."
+            spellCheck="false"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
+        </form>
 
-      <form className="search" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search Pokemon..."
-          spellCheck="false"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </form>
+        <div className="types-container">
+          {types.map(type => {
 
-      <div className="types-container">
-        {types.map(type => {
+            const typeId = get_filter_value(type.url);
+            const isActive = (type.name === "all" && filter_type === "All") || (filter_type === typeId);
 
-          const typeId = get_filter_value(type.url);
-          const isActive = (type.name === "all" && filter_type === "All") || (filter_type === typeId);
-
-          return (
-            <button 
-              key={type.name} 
-              className={isActive ? 'active-filter' : 'type-header'}
-              onClick={() => set_filter_type(type.name === "all" ? "All" : typeId)}
-            >
-              {type.name}
-            </button>
-          );
-        })}
+            return (
+              <button 
+                key={type.name} 
+                className={isActive ? 'active-filter' : 'type-header'}
+                onClick={() => set_filter_type(type.name === "all" ? "All" : typeId)}
+              >
+                {type.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className='container-pokemons'>
-        {pokemons.length > 0 ? (
-          pokemons.map(pokemon => (
-            <PokemonCard pokemon={pokemon} key={pokemon.name} />
-          ))
-        ) : (
-          <p>No Pokemon found!</p>
-        )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', minWidth: '90%', alignItems: 'flex-start'}}>
+        <div className='container-pokemons'>
+          {pokemons.length > 0 ? (
+            pokemons.map(pokemon => (
+              <PokemonCard pokemon={pokemon} key={pokemon.name} onClick={() => set_selected_pokemon(pokemon.name)}/>
+            ))
+          ) : (
+            <p>No Pokemon found!</p>
+          )}
+        </div>
+
+        <div className='selected-pokemon'>
+            <SelectedPokemonCard pokemon={selected_pokemon}/>
+        </div>
       </div>
     </main>
   )

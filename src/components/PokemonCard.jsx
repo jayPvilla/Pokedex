@@ -2,7 +2,7 @@ import "../css/PokemonCard.css"
 import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
 import { useState, useEffect } from "react";
 
-function PokemonCard({ pokemon }) {
+function PokemonCard({ pokemon, onClick }) {
 
     const [imageUrl, setImageUrl] = useState("");
 
@@ -21,7 +21,7 @@ function PokemonCard({ pokemon }) {
     }, [pokemon.name]);
 
     return (
-        <div className="pokemon-card">
+        <div className="pokemon-card" onClick={onClick}>
             <div className="pokemon-poster">
                 <img src={imageUrl} alt={pokemon.name} />
             </div>

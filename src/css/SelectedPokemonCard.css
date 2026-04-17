@@ -1,14 +1,22 @@
-.pokemon-card {
+.pokemon-selected-card {
     display: flex;
+    position: sticky;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.7);
     border: 3px ridge #333;
     border-radius: 20px;      
     overflow: hidden;        
-    width: 200px;           
+    width: 400px;
+    height: auto;           
     text-align: center;
     justify-content: center;
     transition: 0.3s ease;
+    text-transform: uppercase;
+    margin: auto;
+}
+
+.pokemon-selected-card img {
+    width: 70%;
 }
 
 .pokemon-card:hover{
