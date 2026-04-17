@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react'
 import './App.css';
 import PokemonCard from './components/PokemonCard';
 import SelectedPokemonCard from './components/SelectedPokemonCard';
-import { getPokemons, searchPokemons, get_types_of_pokemons, getPokemonsOfSpecificType } from './api/pokemon_api';
+import { getPokemons,
+        searchPokemons,
+        get_types_of_pokemons,
+        getPokemonsOfSpecificType,
+        getDetailsOfSelectedType } 
+  from './api/pokemon_api';
 
 function App() {
   const [pokemons, set_pokemons] = useState([])
@@ -77,6 +82,27 @@ function App() {
     return pokemonId
   }
 
+  const TypeButton = ({ type, isActive, onClick, get_filter_value, getDetailsOfSelectedType }) => {
+    const [iconUrl, setIconUrl] = useState(null);
+
+    useEffect(() => {
+      if (type.name !== "all") {
+        const typeId = get_filter_value(type.url);
+        getDetailsOfSelectedType(typeId).then(data => {
+          // Accessing the specific path you requested
+          const sprite = data[0].sprites['generation-viii']['brilliant-diamond-shining-pearl'].symbol_icon;
+          setIconUrl(sprite);
+        });
+      }
+    }, [type]);
+
+    return (
+      <button className={isActive ? 'active-filter' : 'type-header'} onClick={onClick}>
+        {iconUrl && <img src={iconUrl} alt="" style={{width: '20px', marginRight: '5px'}} className='type_image'/>}
+        {type.name}
+      </button>
+    );
+  };
 
   return (
     <main className='main-content'>
@@ -98,14 +124,17 @@ function App() {
             const typeId = get_filter_value(type.url);
             const isActive = (type.name === "all" && filter_type === "All") || (filter_type === typeId);
 
+            const detail_of_type = async (typeId) => await getDetailsOfSelectedType(typeId);
+
             return (
-              <button 
-                key={type.name} 
-                className={isActive ? 'active-filter' : 'type-header'}
+              <TypeButton 
+                key={type.name}
+                type={type}
+                isActive={isActive}
+                get_filter_value={get_filter_value}
+                getDetailsOfSelectedType={getDetailsOfSelectedType}
                 onClick={() => set_filter_type(type.name === "all" ? "All" : typeId)}
-              >
-                {type.name}
-              </button>
+              />
             );
           })}
         </div>

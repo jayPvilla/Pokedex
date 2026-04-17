@@ -58,3 +58,16 @@ export const getPokemonsOfSpecificType = async (selected_type) => {
         return [];
     } 
 }
+
+
+export const getDetailsOfSelectedType = async (selected_type) => {
+   try {
+        const response = await fetch(`${base_url}/type/${selected_type}?limit=1000`);
+        const data = await response.json();
+        
+        return [data];
+    } catch (e) {
+        console.error("Error fetching types:", e);
+        return [];
+    } 
+}
