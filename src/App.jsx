@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import './App.css';
 import PokemonCard from './components/PokemonCard';
 import SelectedPokemonCard from './components/SelectedPokemonCard';
-import { getPokemons,
-        searchPokemons,
-        get_types_of_pokemons,
-        getPokemonsOfSpecificType,
-        getDetailsOfSelectedType } 
+import {
+  getPokemons,
+  searchPokemons,
+  get_types_of_pokemons,
+  getPokemonsOfSpecificType,
+  getDetailsOfSelectedType
+}
   from './api/pokemon_api';
 
 function App() {
@@ -14,7 +16,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
-  const [searched_pokemon, set_searched_pokemon] = useState("")
   const [selected_pokemon, set_selected_pokemon] = useState("")
 
 
@@ -29,11 +30,12 @@ function App() {
     } else {
       loadPokemonsOfSpecificType(filter_type);
     }
+    set_selected_pokemon("")
   }, [filter_type]);
 
-  
+
   useEffect(() => {
-      set_filter_type("All")
+    set_filter_type("All")
   }, [searchQuery])
 
 
@@ -82,31 +84,30 @@ function App() {
     return pokemonId
   }
 
-  const TypeButton = ({ type, isActive, onClick, get_filter_value, getDetailsOfSelectedType }) => {
+  const TypeButton = memo(({ type, isActive, onClick, get_filter_value, getDetailsOfSelectedType }) => {
     const [iconUrl, setIconUrl] = useState(null);
 
     useEffect(() => {
       if (type.name !== "all") {
         const typeId = get_filter_value(type.url);
         getDetailsOfSelectedType(typeId).then(data => {
-          // Accessing the specific path you requested
           const sprite = data[0].sprites['generation-viii']['brilliant-diamond-shining-pearl'].symbol_icon;
           setIconUrl(sprite);
         });
       }
-    }, [type]);
+    }, []);
 
     return (
       <button className={isActive ? 'active-filter' : 'type-header'} onClick={onClick}>
-        {iconUrl && <img src={iconUrl} alt="" style={{width: '20px', marginRight: '5px'}} className='type_image'/>}
+        {iconUrl && <img src={iconUrl} alt="" style={{ width: '20px', marginRight: '5px' }} className='type_image' />}
         {type.name}
       </button>
     );
-  };
+  });
 
   return (
     <main className='main-content'>
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'sticky'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'sticky' }}>
         <form className="search" onSubmit={handleSearch}>
           <input
             type="text"
@@ -124,10 +125,8 @@ function App() {
             const typeId = get_filter_value(type.url);
             const isActive = (type.name === "all" && filter_type === "All") || (filter_type === typeId);
 
-            const detail_of_type = async (typeId) => await getDetailsOfSelectedType(typeId);
-
             return (
-              <TypeButton 
+              <TypeButton
                 key={type.name}
                 type={type}
                 isActive={isActive}
@@ -140,20 +139,24 @@ function App() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', minWidth: '90%', alignItems: 'flex-start'}}>
-        <div className='container-pokemons'>
+      <div style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '90%', alignItems: 'flex-start' }}>
+        
+        <div className='container-pokemons' style={{ flex: selected_pokemon ? '0 1 auto' : 'none'}}>
           {pokemons.length > 0 ? (
             pokemons.map(pokemon => (
-              <PokemonCard pokemon={pokemon} key={pokemon.name} onClick={() => set_selected_pokemon(pokemon.name)}/>
+              <PokemonCard pokemon={pokemon} key={pokemon.name} onClick={() => set_selected_pokemon(pokemon.name)} isActive={selected_pokemon == pokemon.name} />
             ))
           ) : (
             <p>No Pokemon found!</p>
           )}
         </div>
 
-        <div className='selected-pokemon'>
-            <SelectedPokemonCard pokemon={selected_pokemon}/>
+        {selected_pokemon && 
+          <div className='selected-pokemon' style={{ display: selected_pokemon == "" ? 'none' : 'flex'}}>
+          <SelectedPokemonCard pokemon={selected_pokemon} />
         </div>
+        }
+
       </div>
     </main>
   )
