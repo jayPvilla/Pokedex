@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect, memo } from 'react'
 import '../App.css';
-import PokemonCard from './PokemonCard';
-import SelectedPokemonCard from './SelectedPokemonCard';
+import PokemonCard from '../components/PokemonCard';
+import SelectedPokemonCard from '../components/SelectedPokemonCard';
 import {
   getPokemons,
   searchPokemons,
