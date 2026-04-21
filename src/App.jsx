@@ -1,24 +1,40 @@
-import { useState, useEffect, memo } from 'react'
+import { useState, useEffect, createContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import YourPokemon from './pages/YourPokemon';
+import Favorites from './pages/Favorites';
 import NavBar from './components/NavBar';
 import About from './pages/About';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+export const FavoriteContext = createContext();
 
 function App() {
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem('favorites');
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
   return (
-    <Router>
-      <NavBar/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/home" element={<Home />} />
-        <Route path="/your_pokemon" element={<YourPokemon />} />
-        <Route path="/about" element={<About/>} />
-      </Routes>
-    </Router>
-  )
+    <FavoriteContext.Provider value={{ favorites, setFavorites }}>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Router>
+    </FavoriteContext.Provider>
+  );
 }
 
-export default App
+export default App;

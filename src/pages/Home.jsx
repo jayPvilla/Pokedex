@@ -121,7 +121,7 @@ const Home = () => {
           <button type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
-        <div className="types-container">
+        <section className="types-container">
           {types.map(type => {
 
             const typeId = get_filter_value(type.url);
@@ -138,10 +138,10 @@ const Home = () => {
               />
             );
           })}
-        </div>
+        </section>
       </header>
 
-      <div style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '100%', alignItems: 'flex-start', flex: 1, overflowY: 'auto', maxHeight: '100%'}}>
+      <section className='content-section' style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '100%', alignItems: 'flex-start', flex: 1, overflowY: 'auto', maxHeight: '100%'}}>
         
         <div className='container-pokemons' style={{ flex: selected_pokemon ? '0 1 auto' : 'none', margin: 'auto'}}>
           {pokemons.length > 0 ? (
@@ -159,7 +159,7 @@ const Home = () => {
           </div>
         }
 
-      </div>
+      </section>
     </main>
   )
 }

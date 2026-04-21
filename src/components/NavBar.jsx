@@ -12,7 +12,7 @@ const NavBar = () => {
       </div>
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/your_pokemon">My Pokemon</Link></li>
+        <li><Link to="/favorites">Favorites</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
     </nav>

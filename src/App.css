@@ -1,32 +1,34 @@
 .main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* Change min-height to height to lock the view */
-  height: 100vh; 
-  overflow: hidden;
-  box-sizing: border-box;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Change min-height to height to lock the view */
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-top: 20px;
 }
 
-.type-header, .active-filter {
-  display: flex;
-  align-items: center;
-  background: white;
-  border: 1px outset #33333381;
-  padding: 6px 12px;
-  border-radius: 20px;
-  text-transform: capitalize;
-  font-weight: bold;
-  font-size: 1rem; /* Scaled down from 1.5rem for better fitting */
-  cursor: pointer;
-  transition: all 0.2s ease;
+.type-header,
+.active-filter {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px outset #33333381;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 1rem;
+    /* Scaled down from 1.5rem for better fitting */
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .active-filter {
-  background: #e00000;
-  color: white;
-  border-color: #a00000;
+    background: #e00000;
+    color: white;
+    border-color: #a00000;
 }
 
 .types-container {
@@ -82,6 +84,15 @@
     /* Makes search icon white */
 }
 
+.content-section {
+    display: 'flex';
+    position: 'relative';
+    min-width: '100%';
+    align-items: 'flex-start';
+    flex: 1;
+    overflow-y: 'auto';
+    min-height: '100%';
+}
 
 .container-pokemons {
     flex: 1;
