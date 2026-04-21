@@ -1,20 +1,56 @@
-ul {
+.navBar {
+    width: 100%;
+    background-color: rgba(4, 107, 190, 0.8); /* Bumped opacity for readability */
+    padding: 0 20px; /* Better than margin-right for internal spacing */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centers title and links vertically */
+    box-sizing: border-box; 
+}
+
+.navBar .title-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.navbar-icon{
+  width: 40px;
+  height: auto;
+}
+
+.navBar .app-title {
+  color: #ffcb05; /* Classic Pokemon Yellow */
+  text-shadow: 2px 2px #ca3b3b; /* Classic Pokemon Blue outline effect */
+  margin: 0;
+}
+
+.navBar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 200px;
-  background-color: #f1f1f1;
+  display: flex;
+  gap: 10px; /* Adds space between links */
 }
 
-li a {
+.navBar ul li a {
   display: block;
-  color: black;
+  color: white;
   padding: 8px 16px;
   text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s; /* Smooth color transition */
 }
 
-/* Change the link and background color on hover */
-li a:hover {
-  background-color: #555555;
-  color: white;
+/* Hover State */
+.navBar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* Active Page State (Works with NavLink) */
+.navBar ul li a.active {
+  border-bottom: 3px solid #ffcb05;
+  color: #ffcb05;
 }
