@@ -3,7 +3,7 @@
     position: sticky;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.7);
-    border: 3px ridge #333;
+    border: 3px ridge #33333381;
     border-radius: 20px;      
     overflow: hidden;        
     width: 400px;
@@ -13,6 +13,7 @@
     transition: 0.3s ease;
     text-transform: uppercase;
     margin: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .pokemon-selected-card img {
