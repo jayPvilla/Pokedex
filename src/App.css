@@ -96,8 +96,11 @@
 
 .container-pokemons {
     flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 25px;
     width: 100%;
     max-width: 1200px;

@@ -7,10 +7,14 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: url('./assets/background_image.jpeg');
+    backdrop-filter: blur(15px);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     min-height: 100vh;
+
+
+
     background-attachment: fixed;
     align-items: center;
     overflow: hidden;
@@ -19,4 +23,6 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }

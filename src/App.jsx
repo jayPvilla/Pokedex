@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import NavBar from './components/NavBar';
 import About from './pages/About';
+import Footer from './components/Footer';
 
 export const FavoriteContext = createContext();
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        <Footer/>
       </Router>
     </FavoriteContext.Provider>
   );
