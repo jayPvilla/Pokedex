@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect, memo } from 'react'
+import { useState, useEffect, memo, createContext } from 'react'
 import '../App.css';
 import PokemonCard from '../components/PokemonCard';
 import SelectedPokemonCard from '../components/SelectedPokemonCard';
@@ -15,13 +15,12 @@ import {
 
 
 const Home = () => {
-  
+
   const [pokemons, set_pokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
   const [selected_pokemon, set_selected_pokemon] = useState(null)
-
 
   useEffect(() => {
     loadTypes();
@@ -121,10 +120,9 @@ const Home = () => {
           })}
         </section>
       </header>
-
-      <section className='content-section' style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '100%', alignItems: 'flex-start', flex: 1, overflowY: 'auto', maxHeight: '100%'}}>
-        
-        <div className='container-pokemons' style={{ flex: selected_pokemon ? '0 1 auto' : 'none', margin: 'auto'}}>
+      
+      <section className='content-section' style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '100%', alignItems: 'flex-start', flex: 1, overflowY: 'auto', maxHeight: '100%' }}>
+        <div className='container-pokemons' style={{ flex: selected_pokemon ? '0 1 auto' : 'none', margin: 'auto' }}>
           {pokemons.length > 0 ? (
             pokemons.map(pokemon => (
               <PokemonCard pokemon={pokemon} key={pokemon.name} onClick={() => set_selected_pokemon(pokemon.name)} isActive={selected_pokemon == pokemon.name} />
@@ -133,9 +131,8 @@ const Home = () => {
             <p>No Pokemon found!</p>
           )}
         </div>
-
-        {selected_pokemon && 
-          <div className='selected-pokemon' style={{ display: selected_pokemon == "" ? 'none' : 'flex'}}>
+        {selected_pokemon &&
+          <div className='selected-pokemon' style={{ display: selected_pokemon == "" ? 'none' : 'flex' }}>
             <SelectedPokemonCard pokemon={selected_pokemon} />
           </div>
         }

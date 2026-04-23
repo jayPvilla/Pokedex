@@ -1,8 +1,8 @@
 import "../css/PokemonCard.css"
 import { getPokemons, searchPokemons, base_url } from "../services/pokemon_api"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-function PokemonCard({ pokemon, onClick }) {
+function PokemonCard({ pokemon, onClick, isActive }) {
 
     const [imageUrl, setImageUrl] = useState("");
 
@@ -21,7 +21,7 @@ function PokemonCard({ pokemon, onClick }) {
     }, [pokemon.name]);
 
     return (
-        <div className="pokemon-card" onClick={onClick}>
+        <div className="pokemon-card" onClick={onClick} style={{ background: isActive ? 'yellow' : 'rgba(255, 255, 255, 0.7)' }}>
             <div className="pokemon-poster">
                 <img src={imageUrl} alt={pokemon.name} />
             </div>

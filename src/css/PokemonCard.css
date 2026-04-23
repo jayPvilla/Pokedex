@@ -1,7 +1,6 @@
 .pokemon-card {
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.7);
     border: 3px ridge #33333381;
     border-radius: 20px;      
     overflow: hidden;        
