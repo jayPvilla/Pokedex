@@ -3,6 +3,7 @@ import { useState, useEffect, memo } from 'react'
 import '../App.css';
 import PokemonCard from '../components/PokemonCard';
 import SelectedPokemonCard from '../components/SelectedPokemonCard';
+import { TypeButton } from '../components/TypeButton';
 import {
   getPokemons,
   searchPokemons,
@@ -10,7 +11,8 @@ import {
   getPokemonsOfSpecificType,
   getDetailsOfSelectedType
 }
-  from '../api/pokemon_api';
+  from '../services/pokemon_api';
+
 
 const Home = () => {
   
@@ -18,7 +20,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
-  const [selected_pokemon, set_selected_pokemon] = useState("")
+  const [selected_pokemon, set_selected_pokemon] = useState(null)
 
 
   useEffect(() => {
@@ -85,27 +87,6 @@ const Home = () => {
     const pokemonId = parts[parts.length - 2];
     return pokemonId
   }
-
-  const TypeButton = memo(({ type, isActive, onClick, get_filter_value, getDetailsOfSelectedType }) => {
-    const [iconUrl, setIconUrl] = useState(null);
-
-    useEffect(() => {
-      if (type.name !== "all") {
-        const typeId = get_filter_value(type.url);
-        getDetailsOfSelectedType(typeId).then(data => {
-          const sprite = data[0].sprites['generation-viii']['brilliant-diamond-shining-pearl'].symbol_icon;
-          setIconUrl(sprite);
-        });
-      }
-    }, []);
-
-    return (
-      <button className={isActive ? 'active-filter' : 'type-header'} onClick={onClick}>
-        {iconUrl && <img src={iconUrl} alt="" style={{ width: '20px', marginRight: '5px' }} className='type_image' />}
-        {type.name}
-      </button>
-    );
-  });
 
   return (
     <main className='main-content'>

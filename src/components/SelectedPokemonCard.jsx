@@ -1,5 +1,5 @@
 import "../css/SelectedPokemonCard.css"
-import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
+import { getPokemons, searchPokemons, base_url } from "../services/pokemon_api"
 import { FavoriteContext } from "../App";
 import { useState, useEffect, useContext } from "react";
 import { CiHeart } from "react-icons/ci";

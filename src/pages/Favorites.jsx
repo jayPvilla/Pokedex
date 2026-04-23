@@ -1,5 +1,5 @@
 import React from 'react'
-import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
+import { getPokemons, searchPokemons, base_url } from "../services/pokemon_api"
 import PokemonCard from '../components/PokemonCard';
 import SelectedPokemonCard from '../components/SelectedPokemonCard';
 import { FavoriteContext } from "../App";

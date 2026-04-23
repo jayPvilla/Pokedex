@@ -1,5 +1,5 @@
 import "../css/PokemonCard.css"
-import { getPokemons, searchPokemons, base_url } from "../api/pokemon_api"
+import { getPokemons, searchPokemons, base_url } from "../services/pokemon_api"
 import { useState, useEffect } from "react";
 
 function PokemonCard({ pokemon, onClick }) {
