@@ -21,7 +21,7 @@ function PokemonCard({ pokemon, onClick, isActive }) {
     }, [pokemon.name]);
 
     return (
-        <div className="pokemon-card" onClick={onClick} style={{ background: isActive ? 'yellow' : 'rgba(255, 255, 255, 0.7)' }}>
+        <div className="pokemon-card" onClick={onClick} style={{ background: isActive ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.5)', transform: isActive? 'scale(1.1)' : 'scale(1)' }}>
             <div className="pokemon-poster">
                 <img src={imageUrl} alt={pokemon.name} />
             </div>
