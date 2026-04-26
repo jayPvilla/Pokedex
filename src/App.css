@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Change min-height to height to lock the view */
+    position: relative;
     height: 100vh;
     overflow: hidden;
     box-sizing: border-box;

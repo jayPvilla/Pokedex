@@ -25,6 +25,10 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pokemonPerPage, setPokemonPerPage] = useState(15)
 
+  const lastPostIndex = currentPage * pokemonPerPage
+  const firstPostIndex = lastPostIndex - pokemonPerPage
+  const currentPosts = pokemons.slice(firstPostIndex, lastPostIndex)
+
   useEffect(() => {
     loadTypes();
   }, []);
@@ -37,6 +41,7 @@ const Home = () => {
       loadPokemonsOfSpecificType(filter_type);
     }
     set_selected_pokemon("")
+    setCurrentPage(1)
   }, [filter_type]);
 
 
@@ -90,10 +95,6 @@ const Home = () => {
     return pokemonId
   }
 
-  const lastPostIndex = currentPage * pokemonPerPage
-  const firstPostIndex = lastPostIndex - pokemonPerPage
-  const currentPosts = pokemons.slice(firstPostIndex, lastPostIndex)
-
   return (
     <main className='main-content'>
       <header style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -146,7 +147,11 @@ const Home = () => {
 
       </section>
       <section>
-        <Pagination pokemonPerPage={pokemonPerPage} totalPokemons={pokemons.length}  setCurrentPage={setCurrentPage}/>
+        <Pagination
+          pokemonPerPage={pokemonPerPage} 
+          totalPokemons={pokemons.length} 
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}/>
       </section>
     </main>
   )
