@@ -3,6 +3,7 @@ import { useState, useEffect, memo, createContext } from 'react'
 import '../App.css';
 import PokemonCard from '../components/PokemonCard';
 import SelectedPokemonCard from '../components/SelectedPokemonCard';
+import Pagination from '../components/Pagination';
 import { TypeButton } from '../components/TypeButton';
 import {
   getPokemons,
@@ -21,6 +22,8 @@ const Home = () => {
   const [types, set_types] = useState([])
   const [filter_type, set_filter_type] = useState("All")
   const [selected_pokemon, set_selected_pokemon] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pokemonPerPage, setPokemonPerPage] = useState(15)
 
   useEffect(() => {
     loadTypes();
@@ -87,6 +90,10 @@ const Home = () => {
     return pokemonId
   }
 
+  const lastPostIndex = currentPage * pokemonPerPage
+  const firstPostIndex = lastPostIndex - pokemonPerPage
+  const currentPosts = pokemons.slice(firstPostIndex, lastPostIndex)
+
   return (
     <main className='main-content'>
       <header style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -123,8 +130,8 @@ const Home = () => {
       
       <section className='content-section' style={{ display: 'flex', justifyContent: selected_pokemon ? 'space-between' : 'center', position: 'relative', minWidth: '100%', alignItems: 'flex-start', flex: 1, overflowY: 'auto', maxHeight: '100%' }}>
         <div className='container-pokemons' style={{ flex: selected_pokemon ? '0 1 auto' : 'none', margin: 'auto' }}>
-          {pokemons.length > 0 ? (
-            pokemons.map(pokemon => (
+          {currentPosts.length > 0 ? (
+            currentPosts.map(pokemon => (
               <PokemonCard pokemon={pokemon} key={pokemon.name} onClick={() => set_selected_pokemon(pokemon.name)} isActive={selected_pokemon == pokemon.name} />
             ))
           ) : (
@@ -137,6 +144,9 @@ const Home = () => {
           </div>
         }
 
+      </section>
+      <section>
+        <Pagination pokemonPerPage={pokemonPerPage} totalPokemons={pokemons.length}  setCurrentPage={setCurrentPage}/>
       </section>
     </main>
   )

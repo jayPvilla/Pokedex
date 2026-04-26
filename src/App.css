@@ -90,6 +90,7 @@
     min-width: '100%';
     align-items: 'flex-start';
     flex: 1;
+    flex-grow: 1;
     overflow-y: 'auto';
     min-height: '100%';
 }
