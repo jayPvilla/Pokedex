@@ -3,34 +3,43 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;           /* Increased gap for better touch/click targets */
-  padding: 20px 0;    /* Adds breathing room above and below the container */
+  gap: 8px;         
+  padding: 20px 0;    
 }
 
 .pagination-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 45px;        /* Fixed width and height ensures perfect squares */
+  width: 45px;        
   height: 45px;
-  font-size: 16px;    /* Slightly smaller font often looks cleaner in small boxes */
+  font-size: 16px;    
   cursor: pointer;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px; /* Matches the rounded aesthetic of your Pokémon cards */
-  transition: all 0.2s ease;
+  border-radius: 10px; 
+  transition: all 0.5s ease;
 }
 
-/* Hover state for better interactivity */
 .pagination-button:hover {
   background-color: #f0f0f0;
   border-color: #bbb;
 }
 
-/* Style for the active page (mimicking your red 'All' filter) */
-.pagination-button.active {
-  background-color: #ff0000;
+
+.pagination-button-active {
+  align-items: center;
+  justify-content: center;
+  width: 45px;       
+  height: 45px;
+  font-size: 16px;    
+  cursor: pointer;
+  background-color: rgba(4, 107, 190, 0.8);
   color: white;
-  border-color: #cc0000;
   font-weight: bold;
+  transform: scale(1.2);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  margin: auto 5px auto 5px;
 }

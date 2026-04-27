@@ -33,7 +33,6 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/about" element={<About />} />
         </Routes>
-        <Footer/>
       </Router>
     </FavoriteContext.Provider>
   );

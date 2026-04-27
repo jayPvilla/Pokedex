@@ -13,12 +13,8 @@ const Pagination = ({ totalPokemons, pokemonPerPage, currentPage, setCurrentPage
         <button
           key={index}
           onClick={() => setCurrentPage(index + 1)}
-          className='pagination-button'
-          style={{
-            background: currentPage == index+1? 'rgba(4, 107, 190, 0.8)' : 'white',
-            color: currentPage == index+1? 'white' : 'black',
-            transform: currentPage == index+1? 'scale(1.1)' : 'scale(1)'
-        }}>
+          className={currentPage == index+1? 'pagination-button-active' : 'pagination-button'}
+        >
           {page}
         </button>
       ))}
